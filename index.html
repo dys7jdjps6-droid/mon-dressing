@@ -5,6 +5,19 @@
 </style></head><body><main class="wrap"><header><div><div class="eyebrow">Ma collection personnelle</div><h1>Mon Dressing</h1></div><button class="btn" id="add">+ Ajouter</button></header><p class="intro">Toutes tes pièces préférées, au même endroit.</p><nav class="filters" id="filters" aria-label="Catégories"></nav><section id="content"></section><p class="note">Version personnelle : les photos et les articles sont enregistrés sur cet appareil, dans ce navigateur. Ils ne sont pas synchronisés entre appareils. Évite de vider les données du navigateur avant d'avoir une fonction de sauvegarde.</p></main>
 <dialog id="formDialog"><form id="form"><h2>Ajouter une pièce</h2><label for="photo">Photo (détourage automatique)</label><input id="photo" type="file" accept="image/*" required><img id="preview" alt="Aperçu du vêtement"><p id="status" role="status" aria-live="polite"></p><button class="btn secondary" type="button" id="retry">Réessayer le détourage</button><label for="name">Nom</label><input id="name" placeholder="Ex. Robe noire" required maxlength="80"><label for="category">Catégorie</label><select id="category"></select><label for="color">Couleur (facultatif)</label><input id="color" placeholder="Ex. Noir" maxlength="40"><div class="actions"><button class="btn secondary" type="button" id="cancel">Annuler</button><button class="btn" type="submit" id="submit" disabled>Enregistrer</button></div></form></dialog>
 <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDReKt4VPQCTLRY8bvSTV42hi-GuVknRkc",
+  authDomain: "mon-dressing-5dfed.firebaseapp.com",
+  projectId: "mon-dressing-5dfed",
+  storageBucket: "mon-dressing-5dfed.firebasestorage.app",
+  messagingSenderId: "666299453239",
+  appId: "1:666299453239:web:20fefd420f87ef85b814b2"
+};
+
+const app = initializeApp(firebaseConfig);
+
 const categories=['Tout','Hauts','Bas','Robes','Vestes','Chaussures','Sacs','Bijoux','Accessoires','Autres'];let selected='Tout';const key='mon-dressing-v1';let items=[];try{items=JSON.parse(localStorage.getItem(key)||'[]')}catch(e){items=[]}
 const $=id=>document.getElementById(id),filters=$('filters'),content=$('content'),dialog=$('formDialog'),category=$('category'),photo=$('photo'),preview=$('preview'),status=$('status'),submit=$('submit'),retry=$('retry');categories.slice(1).forEach(c=>category.add(new Option(c,c)));
 function save(){try{localStorage.setItem(key,JSON.stringify(items));return true}catch(e){alert('Stockage saturé. Essaie une photo plus petite.');return false}}
