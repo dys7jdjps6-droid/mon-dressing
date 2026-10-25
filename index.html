@@ -15,7 +15,7 @@ const firebaseConfig = {
   messagingSenderId: "666299453239",
   appId: "1:666299453239:web:20fefd420f87ef85b814b2"
 };
-
+ 
 const app = initializeApp(firebaseConfig);
 
 const categories=['Tout','Hauts','Bas','Robes','Vestes','Chaussures','Sacs','Bijoux','Accessoires','Autres'];let selected='Tout';const key='mon-dressing-v1';let items=[];try{items=JSON.parse(localStorage.getItem(key)||'[]')}catch(e){items=[]}
